@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>WUDI软件作品园 | 极致创造 · 匠心独运</title>
-    <!-- 引入 Google Fonts 与 Font Awesome 6 提升视觉高级感 -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- 使用国内稳定CDN (BootCDN) 加载 Font Awesome 6，确保快速访问，移除Google字体改用系统字体栈 -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -16,8 +15,7 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            /* 浅色背景: 柔和渐变从暖白到淡灰蓝 */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
             background: radial-gradient(circle at 20% 30%, #f9fbfd, #eef2f8);
             min-height: 100vh;
             color: #1e2a3e;
@@ -26,7 +24,6 @@
             position: relative;
         }
 
-        /* 动态光晕粒子效果 - 调整为轻柔的蓝紫色光晕，符合浅色氛围 */
         body::before {
             content: "";
             position: fixed;
@@ -39,7 +36,6 @@
             z-index: 0;
         }
 
-        /* 主容器 */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -47,7 +43,6 @@
             z-index: 2;
         }
 
-        /* 头部区域 高级玻璃风格 - 浅色系精致 */
         .hero {
             text-align: center;
             margin-bottom: 3.5rem;
@@ -79,7 +74,6 @@
             color: #1e3a5f;
         }
 
-        /* 卡片网格 */
         .cards-grid {
             display: flex;
             flex-wrap: wrap;
@@ -88,7 +82,6 @@
             margin-bottom: 3rem;
         }
 
-        /* 卡片高级样式 — 浅色磨砂玻璃质感 */
         .card {
             flex: 1;
             min-width: 340px;
@@ -99,7 +92,7 @@
             border: 1px solid rgba(100, 130, 180, 0.3);
             box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.08), 0 0 0 0.5px rgba(255, 255, 255, 0.6) inset;
             transition: all 0.4s ease;
-            overflow: hidden;
+            overflow: visible;  /* 关键：让下拉菜单可以超出卡片边界 */
             padding: 1.8rem;
             animation: fadeInScale 0.6s ease-out;
         }
@@ -111,7 +104,6 @@
             background: rgba(255, 255, 255, 0.9);
         }
 
-        /* 卡片头部区 (图标+标题) */
         .card-header {
             display: flex;
             gap: 1.2rem;
@@ -165,7 +157,6 @@
             color: #2c4a7a;
         }
 
-        /* 技术规格区域 (网格) - 浅色半透明 */
         .spec-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -244,7 +235,6 @@
             color: #2c4a6e;
         }
 
-        /* 下载按钮区域 (相对定位容器) */
         .download-wrapper {
             position: relative;
             margin-top: 1.8rem;
@@ -290,7 +280,7 @@
             transform: translateY(2px);
         }
 
-        /* 下拉菜单 - 浅色高级玻璃质感 */
+        /* 下拉菜单 - 始终向上展开 */
         .dropdown-menu {
             position: absolute;
             bottom: calc(100% + 12px);
@@ -306,6 +296,8 @@
             transition: all 0.2s ease;
             transform-origin: bottom;
             animation: menuPop 0.2s ease-out;
+            max-height: 280px;
+            overflow-y: auto;
         }
 
         .dropdown-menu a {
@@ -334,13 +326,11 @@
             color: #0a2b48;
         }
 
-        /* 第二个卡片简单按钮链接样式 (无下拉) */
         .direct-download {
             text-decoration: none;
             display: block;
         }
 
-        /* 自定义滚动条 - 浅色柔和风格 */
         ::-webkit-scrollbar {
             width: 5px;
             height: 5px;
@@ -360,7 +350,6 @@
             background: #6f8db0;
         }
 
-        /* 动画 */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -394,7 +383,6 @@
             }
         }
 
-        /* 响应式 */
         @media (max-width: 780px) {
             body {
                 padding: 1.2rem;
@@ -416,6 +404,9 @@
             .title-info h2 {
                 font-size: 1.5rem;
             }
+            .dropdown-menu {
+                max-height: 240px;
+            }
         }
 
         .footer-note {
@@ -430,8 +421,7 @@
         i, .fas, .far {
             pointer-events: none;
         }
-        
-        /* 保证一些标签在浅色下清晰 */
+
         .lib-list::-webkit-scrollbar-thumb {
             background: #b9cef0;
         }
@@ -457,7 +447,7 @@
     </div>
 
     <div class="cards-grid">
-        <!-- 卡片 1 : WD-pylog (个人记录软件) 具备高级下拉菜单 -->
+        <!-- 卡片 1 : WD-pylog -->
         <div class="card">
             <div class="card-header">
                 <div class="app-icon">
@@ -466,43 +456,37 @@
                 <div class="title-info">
                     <h2>WD-pylog</h2>
                     <span class="category"><i class="fas fa-pen-alt"></i> 个人记录软件</span>
-<span class="category"><i class="fas fa-pen-alt"></i> 激活码授权版</span>
+                    <span class="category"><i class="fas fa-pen-alt"></i> 激活码授权版</span>
                 </div>
             </div>
-            <!-- 核心语言 & GUI 标签 -->
             <div class="badge-list">
                 <span class="badge"><i class="fab fa-python"></i> Python 3.13</span>
                 <span class="badge"><i class="fas fa-desktop"></i> Tkinter GUI</span>
                 <span class="badge"><i class="fas fa-box"></i> Nuitka 打包</span>
                 <span class="badge"><i class="fas fa-database"></i> SQLite</span>
                 <span class="badge"><i class="fas fa-hdd"></i> 本地存储</span>
-<span class="badge"><i class="fas fa-hdd"></i> 下载密码为2658</span>
-<span class="badge"><i class="fas fa-hdd"></i> 安装密码和激活码请联系2658521367@qq.com获取</span>
+                <span class="badge"><i class="fas fa-hdd"></i> 下载密码为2658</span>
+                <span class="badge"><i class="fas fa-hdd"></i> 安装密码和激活码请联系2658521367@qq.com获取</span>
             </div>
-            <!-- 扩展信息网格 -->
             <div class="spec-grid">
                 <div class="spec-item"><i class="fas fa-hourglass-half"></i> 耗时：10个月</div>
                 <div class="spec-item"><i class="fas fa-shield-alt"></i> 维护：目前简单维护</div>
                 <div class="spec-item"><i class="fas fa-code-branch"></i> 版本：38个版本 + 3个特别版</div>
                 <div class="spec-item"><i class="fas fa-calendar-alt"></i> 开发：2025.03.26</div>
             </div>
-            <!-- 第三方库展示 -->
             <div style="font-size: 0.75rem; font-weight: 500; margin-top: 6px; color:#1f3f62;"><i class="fas fa-cubes"></i> 核心依赖库</div>
             <div class="lib-list">
                 <span>matplotlib</span><span>numpy</span><span>opencv-python</span><span>pillow</span><span>keyboard</span>
                 <span>pygame</span><span>moviepy</span><span>pywebview</span><span>requests</span><span>psutil</span><span>wmi</span>
             </div>
-            <!-- AI辅助信息 -->
             <div class="ai-row">
                 <span><i class="fas fa-robot"></i> AI: DeepseekR1, Kimik1.5, k2, 豆包</span>
                 <span><i class="fas fa-microchip"></i> 智能辅助深度协同</span>
             </div>
-            <!-- 下载区域 (带下拉菜单) -->
             <div class="download-wrapper" id="pylog-download-wrapper">
                 <button class="download-btn" id="pylogDownloadBtn">
                     <i class="fas fa-download"></i> 获取 WD-pylog <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
                 </button>
-                <!-- 下拉菜单结构 内置四个版本链接 -->
                 <div class="dropdown-menu" id="pylogDropdown" style="display: none;">
                     <a href="https://cloud.189.cn/web/share?code=ZvaeYfMRJJnq（访问码：1u4b）" target="_blank" rel="noopener noreferrer" class="menu-item">
                         <i class="fas fa-rocket"></i> WD-pylog 最新版 (v3.8)-1GB  —— 授权版
@@ -520,7 +504,7 @@
             </div>
         </div>
 
-        <!-- 卡片 2 : WD-weblog (个人记录软件 纯HTML前端风格) -->
+        <!-- 卡片 2 : WD-weblog -->
         <div class="card">
             <div class="card-header">
                 <div class="app-icon">
@@ -529,7 +513,7 @@
                 <div class="title-info">
                     <h2>WD-weblog</h2>
                     <span class="category"><i class="fas fa-globe"></i> 个人记录软件 · 混合架构</span>
-<span class="category"><i class="fas fa-globe"></i> 纯免费版</span>
+                    <span class="category"><i class="fas fa-globe"></i> 纯免费版</span>
                 </div>
             </div>
             <div class="badge-list">
@@ -545,22 +529,18 @@
                 <div class="spec-item"><i class="fas fa-tag"></i> 版本：1.0 首发版</div>
                 <div class="spec-item"><i class="fas fa-calendar-alt"></i> 开发：2026.03.13</div>
             </div>
-            <!-- GUI及技术亮点描述 -->
             <div style="margin: 12px 0 6px 0; display: flex; gap: 8px; flex-wrap: wrap;">
                 <span class="badge"><i class="fas fa-code"></i> 前端: HTML/CSS/JS</span>
                 <span class="badge"><i class="fas fa-layer-group"></i> webview 2内核</span>
                 <span class="badge"><i class="fas fa-database"></i> SQLite 本地存储</span>
             </div>
-            <!-- 第三方库列表: 轻量说明 -->
             <div class="lib-list" style="margin-top: 4px;">
                 <span>Flask-Lite</span><span>wxpython</span><span>sqlite3</span>
             </div>
-            <!-- AI辅助信息 -->
             <div class="ai-row">
                 <span><i class="fas fa-brain"></i> AI: Qwen3-Max-Thinking, Deepseekv3.2</span>
                 <span><i class="fas fa-bolt"></i> 敏捷开发·双模型驱动</span>
             </div>
-            <!-- 直接下载按钮，无下拉菜单 链接需求 https://dwfsgukf.com -->
             <div class="download-wrapper" style="margin-top: 1.8rem;">
                 <a href="https://wwapa.lanzouq.com/iqotE3ljfs6d" target="_blank" rel="noopener noreferrer" class="direct-download">
                     <button class="download-btn" style="cursor: pointer;">
@@ -578,118 +558,94 @@
 
 <script>
     (function() {
-        // ---------- WD-pylog 下拉菜单交互 ----------
         const downloadBtn = document.getElementById('pylogDownloadBtn');
         const dropdown = document.getElementById('pylogDropdown');
         const wrapper = document.getElementById('pylog-download-wrapper');
         
-        // 确保菜单初始隐藏
+        if (!downloadBtn || !dropdown) return;
+        
         let isMenuOpen = false;
         
-        // 切换菜单显示/隐藏，并动态计算位置 (以防滚动偏移)
-        function toggleMenu(e) {
-            if(e) e.stopPropagation();
-            if (dropdown.style.display === 'none' || dropdown.style.display === '') {
-                // 显示菜单: 先重新计算位置 (相对于按钮正下方且采用bottom:auto? 原本使用 bottom:100% 上方显示
-                // 但设计为了让菜单在按钮上方出现更符合现代化，但是按钮靠底部，为了避免超出卡片，改用向上展开（原css设置bottom:100%上方弹出）
-                // 然而卡片内空间足够，向上弹出可能会超出卡片顶部? 但卡片高度足够一般正常, 为了极佳体验, 让菜单出现在按钮上方（原css已经 bottom:100%+12px）
-                // 但为了更好观看，如果菜单过高超出窗口顶部，可动态改为向下展开。这里简单保持优雅向上
-                // 确保重新设置样式无异常, 并且重新计算若超出视口则改为向下展开
-                const btnRect = downloadBtn.getBoundingClientRect();
-                const menuHeight = 210; // 预估菜单高度约200px
-                const viewportTop = window.scrollY;
-                const spaceAbove = btnRect.top - viewportTop;
-                // 如果上方空间不足，则改为向下展开(修改样式)
-                if (spaceAbove < menuHeight + 20) {
-                    dropdown.style.bottom = 'auto';
-                    dropdown.style.top = 'calc(100% + 10px)';
-                    dropdown.style.transformOrigin = 'top';
-                } else {
-                    dropdown.style.bottom = 'calc(100% + 12px)';
-                    dropdown.style.top = 'auto';
-                    dropdown.style.transformOrigin = 'bottom';
-                }
-                dropdown.style.display = 'block';
-                isMenuOpen = true;
-            } else {
-                dropdown.style.display = 'none';
-                isMenuOpen = false;
+        // 统一向上展开菜单，并动态调整位置防止超出视口顶部
+        function openMenu() {
+            // 先设置为向上定位的默认样式
+            dropdown.style.bottom = 'calc(100% + 12px)';
+            dropdown.style.top = 'auto';
+            dropdown.style.transformOrigin = 'bottom';
+            dropdown.style.display = 'block';
+            
+            // 获取菜单实际高度
+            const menuHeight = dropdown.scrollHeight;
+            const btnRect = downloadBtn.getBoundingClientRect();
+            const scrollTop = window.scrollY;
+            const menuTop = btnRect.top + scrollTop - menuHeight - 12; // 菜单顶部理论位置
+            
+            // 如果菜单顶部超出视口顶部（即 scrollY > menuTop），则调整位置使其紧贴视口顶部
+            if (menuTop < scrollTop) {
+                // 调整 bottom 值，让菜单顶部对齐视口顶部
+                const offset = scrollTop - menuTop;
+                dropdown.style.bottom = `calc(100% + ${12 + offset}px)`;
             }
+            isMenuOpen = true;
         }
         
-        // 关闭菜单
         function closeMenu() {
-            if (dropdown) dropdown.style.display = 'none';
+            dropdown.style.display = 'none';
             isMenuOpen = false;
+            // 恢复默认 bottom 值，以便下次重新计算
+            dropdown.style.bottom = '';
         }
         
-        // 点击按钮时切换
-        if (downloadBtn && dropdown) {
-            downloadBtn.addEventListener('click', (e) => {
+        downloadBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+                openMenu();
+            } else {
+                closeMenu();
+            }
+        });
+        
+        // 点击菜单项时关闭
+        const menuItems = dropdown.querySelectorAll('.menu-item');
+        menuItems.forEach(item => {
+            item.addEventListener('click', (e) => {
                 e.stopPropagation();
-                toggleMenu(e);
+                setTimeout(closeMenu, 50);
             });
-            
-            // 点击菜单内部任何a链接时，先跳转，然后关闭菜单 (避免冒泡关闭)
-            const menuItems = dropdown.querySelectorAll('.menu-item');
-            menuItems.forEach(item => {
-                item.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    // 正常打开链接，但是延迟一点点关闭菜单保证视觉流畅
-                    setTimeout(() => {
-                        closeMenu();
-                    }, 50);
-                });
-            });
-            
-            // 点击页面任意地方，如果菜单开着就关闭，但是要排除按钮和菜单本身
-            document.addEventListener('click', function(e) {
-                if (!wrapper) return;
-                // 如果点击的目标不在wrapper内部
-                if (!wrapper.contains(e.target)) {
-                    if (dropdown.style.display === 'block') {
-                        closeMenu();
-                    }
-                }
-            });
-            
-            // 防止滚动或者resize时菜单不关闭：优雅保留，滚动时最好关闭
-            window.addEventListener('scroll', function() {
-                if (dropdown && dropdown.style.display === 'block') {
-                    closeMenu();
-                }
-            });
-            
-            // 可选：如果resize窗口改变则关闭
-            window.addEventListener('resize', function() {
-                if (dropdown && dropdown.style.display === 'block') closeMenu();
-            });
-        }
+        });
         
-        // 针对第二张卡片直接链接没有任何额外逻辑，但确保外部链接安全；且按钮点击触发的a标签行为完美。
-        // 附加优雅效果: 防止图片加载失败显示占位文字
+        // 点击页面其他地方关闭
+        document.addEventListener('click', function(e) {
+            if (wrapper && !wrapper.contains(e.target) && dropdown.style.display === 'block') {
+                closeMenu();
+            }
+        });
+        
+        // 滚动或窗口大小改变时关闭菜单（防止位置错乱）
+        window.addEventListener('scroll', function() {
+            if (dropdown.style.display === 'block') closeMenu();
+        });
+        window.addEventListener('resize', function() {
+            if (dropdown.style.display === 'block') closeMenu();
+        });
+        
+        // 初始隐藏
+        dropdown.style.display = 'none';
+        
+        // 图片容错
         const images = document.querySelectorAll('.app-icon img');
         images.forEach(img => {
             img.addEventListener('error', function() {
-                this.style.objectFit = 'cover';
-                this.style.padding = '12px';
-                // 可增加背景渐变占位
-                if (this.src.includes('1.png')) {
-                    this.alt = 'WD-pylog';
-                } else if (this.src.includes('2.png')) {
-                    this.alt = 'WD-weblog';
+                if (!this.getAttribute('data-fallback')) {
+                    this.setAttribute('data-fallback', 'true');
+                    this.style.objectFit = 'cover';
+                    this.style.background = '#eef2fa';
+                    this.style.padding = '12px';
                 }
             });
         });
         
-        // 稍微添加控制台彩蛋
-        console.log("%c✨ WUDI 软件作品园 | 浅色匠心 · 灵感新章", "color: #2c6280; font-size: 16px; font-weight: bold;");
-        
-        // 确保下拉菜单初始隐藏状态兼容
-        if (dropdown) dropdown.style.display = 'none';
-        
-        // 增加卡片入场后平滑背景跟随（无需额外）
-        // 附加一个tooltip风格提示下载菜单特性（无需额外）
+        console.log("%c✨ WUDI 软件作品园 | 统一向上菜单 · 完美适配窄屏", "color: #2c6280; font-size: 16px; font-weight: bold;");
     })();
 </script>
 </body>
