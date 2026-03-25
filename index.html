@@ -1,704 +1,691 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>🍃 丝滑炒股模拟器 · 10秒为一天</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>WUDI软件作品园 | 极致创造 · 匠心独运</title>
+    <!-- 引入 Google Fonts 与 Font Awesome 6 提升视觉高级感 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            background: linear-gradient(145deg, #0b0f18 0%, #1a1f2b 100%);
+            font-family: 'Inter', sans-serif;
+            /* 浅色背景: 柔和渐变从暖白到淡灰蓝 */
+            background: radial-gradient(circle at 20% 30%, #f9fbfd, #eef2f8);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
-            padding: 16px;
-            margin: 0;
+            color: #1e2a3e;
+            line-height: 1.4;
+            padding: 2rem 1.5rem;
+            position: relative;
         }
 
-        .simulator-card {
-            max-width: 880px;
+        /* 动态光晕粒子效果 - 调整为轻柔的蓝紫色光晕，符合浅色氛围 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            background: rgba(22, 28, 40, 0.8);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid rgba(72, 92, 124, 0.3);
-            border-radius: 42px;
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(120, 180, 255, 0.1) inset;
-            padding: 24px 26px;
-            transition: all 0.2s ease;
-            color: #ebf0f7;
-        }
-
-        /* 顶部仪表 */
-        .stats-dashboard {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px 20px;
-            background: rgba(10, 15, 25, 0.6);
-            border-radius: 60px;
-            padding: 16px 24px;
-            margin-bottom: 28px;
-            border: 1px solid rgba(74, 144, 226, 0.3);
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
-        }
-
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            min-width: 100px;
-        }
-
-        .stat-label {
-            font-size: 13px;
-            font-weight: 400;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            color: #90a4c9;
-        }
-
-        .stat-value {
-            font-size: 28px;
-            font-weight: 600;
-            line-height: 1.2;
-            display: flex;
-            align-items: baseline;
-            gap: 6px;
-            text-shadow: 0 2px 5px rgba(0, 30, 80, 0.6);
-        }
-
-        .stat-value small {
-            font-size: 16px;
-            font-weight: 400;
-            color: #b3c6e7;
-        }
-
-        .price-now {
-            color: #4cd964;
-        }
-
-        .day-badge {
-            background: #2b3b58;
-            border-radius: 40px;
-            padding: 8px 22px;
-            text-align: center;
-            border: 1px solid #3e5577;
-        }
-
-        .day-badge .day-number {
-            font-size: 26px;
-            font-weight: 700;
-            color: #ffdb8a;
-        }
-
-        .progress-container {
-            background: #1d2638;
-            height: 8px;
-            border-radius: 20px;
-            margin: 12px 0 6px 0;
-            width: 180px;
-            overflow: hidden;
-            border: 1px solid #32415e;
-        }
-
-        .progress-fill {
             height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #6eb1ff, #3d7eff);
-            border-radius: 20px;
-            box-shadow: 0 0 12px #3d7eff;
-            transition: width 0.15s linear;
+            background: radial-gradient(circle at 70% 40%, rgba(55, 100, 210, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+            pointer-events: none;
+            z-index: 0;
         }
 
-        /* 图表区域 */
-        .chart-container {
-            background: #101520;
-            border-radius: 32px;
-            padding: 20px 10px 10px 10px;
-            margin-bottom: 30px;
-            border: 1px solid #2b3850;
-            box-shadow: inset 0 0 20px #00000055, 0 10px 20px #00000060;
+        /* 主容器 */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
 
-        canvas#stockCanvas {
-            display: block;
-            width: 100%;
-            height: auto;
-            border-radius: 18px;
-            background: #0c111a;
-            cursor: crosshair;
-            box-shadow: 0 0 0 1px #3f5577 inset;
+        /* 头部区域 高级玻璃风格 - 浅色系精致 */
+        .hero {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
         }
 
-        /* 交易面板 */
-        .trade-panel {
-            background: rgba(16, 22, 34, 0.7);
-            border-radius: 38px;
-            padding: 22px 26px;
-            border: 1px solid #38506e;
-            backdrop-filter: blur(8px);
-            margin-top: 12px;
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e2f5a, #2c4c7c, #1e3a5f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
-        .trade-row {
+        .hero .glow {
+            font-size: 1.1rem;
+            font-weight: 500;
+            opacity: 0.85;
+            background: rgba(200, 215, 235, 0.6);
+            backdrop-filter: blur(4px);
+            display: inline-block;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            margin-top: 1rem;
+            border: 1px solid rgba(70, 110, 160, 0.25);
+            color: #1e3a5f;
+        }
+
+        /* 卡片网格 */
+        .cards-grid {
             display: flex;
             flex-wrap: wrap;
-            align-items: center;
-            gap: 18px;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
         }
 
-        .action-buttons {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-
-        .quantity-control {
-            display: flex;
-            align-items: center;
-            background: #1f2a3c;
-            border-radius: 48px;
-            border: 1px solid #415e86;
+        /* 卡片高级样式 — 浅色磨砂玻璃质感 */
+        .card {
+            flex: 1;
+            min-width: 340px;
+            max-width: 560px;
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(12px);
+            border-radius: 2.5rem;
+            border: 1px solid rgba(100, 130, 180, 0.3);
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.08), 0 0 0 0.5px rgba(255, 255, 255, 0.6) inset;
+            transition: all 0.4s ease;
             overflow: hidden;
+            padding: 1.8rem;
+            animation: fadeInScale 0.6s ease-out;
         }
 
-        .quantity-control button {
-            background: #2e3f5a;
-            border: none;
-            color: white;
-            font-size: 26px;
-            font-weight: 600;
-            width: 48px;
-            height: 54px;
-            cursor: pointer;
-            transition: 0.15s;
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(60, 120, 200, 0.5);
+            box-shadow: 0 22px 36px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(70, 130, 220, 0.2) inset;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        /* 卡片头部区 (图标+标题) */
+        .card-header {
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .app-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(240, 245, 252, 0.8);
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            line-height: 1;
-            box-shadow: inset 0 -2px 0 #1b2638;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(90, 130, 180, 0.3);
+            padding: 8px;
+            transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
         }
 
-        .quantity-control button:hover {
-            background: #3f5680;
+        .app-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
         }
 
-        .quantity-control input {
-            width: 80px;
-            text-align: center;
-            font-size: 22px;
+        .title-info h2 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            background: linear-gradient(130deg, #1f3a5f, #2c5282);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .category {
+            display: inline-block;
+            background: rgba(70, 120, 190, 0.12);
+            backdrop-filter: blur(2px);
+            padding: 0.2rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
             font-weight: 600;
-            background: #0f1622;
-            border: none;
-            color: #eef4ff;
-            padding: 10px 0;
-            outline: none;
-            font-feature-settings: "tnum";
+            margin-top: 6px;
+            border: 0.5px solid rgba(60, 110, 170, 0.3);
+            color: #2c4a7a;
         }
 
-        .buy-sell {
+        /* 技术规格区域 (网格) - 浅色半透明 */
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+            background: rgba(0, 0, 0, 0.03);
+            border-radius: 1.5rem;
+            padding: 1rem;
+            margin: 1.2rem 0;
+            font-size: 0.85rem;
+        }
+
+        .spec-item {
             display: flex;
-            gap: 15px;
+            align-items: center;
+            gap: 8px;
+            color: #2c3e58;
         }
 
-        .btn {
-            border: none;
-            border-radius: 48px;
-            font-size: 24px;
-            font-weight: 600;
-            padding: 12px 42px;
-            cursor: pointer;
-            transition: 0.12s ease;
-            letter-spacing: 1px;
-            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.3), 0 2px 10px rgba(255, 255, 255, 0.1);
+        .spec-item i {
+            width: 24px;
+            color: #3a71b0;
+            font-size: 1rem;
         }
 
-        .btn:active {
-            transform: translateY(5px);
-            box-shadow: 0 3px 0 rgba(0, 0, 0, 0.4);
+        .badge-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0 0.8rem 0;
         }
 
-        .btn-buy {
-            background: #1f8b4c;
-            color: white;
-            text-shadow: 0 1px 3px #0b491f;
-        }
-
-        .btn-sell {
-            background: #b13e3e;
-            color: white;
-            text-shadow: 0 1px 3px #5e1e1e;
-        }
-
-        .btn-secondary {
-            background: #2e405d;
-            color: #d8e4ff;
-            font-size: 18px;
-            padding: 10px 28px;
-            box-shadow: 0 5px 0 #121b26;
-        }
-
-        .message-area {
-            margin-top: 18px;
-            font-size: 18px;
-            padding: 14px 20px;
-            background: #0e1a24;
+        .badge {
+            background: rgba(80, 120, 170, 0.12);
+            backdrop-filter: blur(2px);
+            padding: 0.2rem 0.8rem;
             border-radius: 40px;
-            border-left: 6px solid #4f6e9e;
-            color: #c9dbfb;
-            font-weight: 400;
-            min-height: 64px;
-            word-break: break-word;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border-left: 2px solid #3a7bca;
+            color: #1f3f62;
+            transition: 0.1s ease;
         }
 
-        .footer-controls {
+        .lib-list {
             display: flex;
-            gap: 16px;
-            justify-content: flex-end;
-            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin: 0.8rem 0;
+            max-height: 95px;
+            overflow-y: auto;
+            padding-right: 4px;
+            scrollbar-width: thin;
         }
 
-        /* 辅助 */
-        .highlight {
-            color: #ffd966;
+        .lib-list span {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-family: monospace;
+            letter-spacing: 0.2px;
+            border: 0.5px solid rgba(70, 110, 150, 0.2);
+            color: #2b4a73;
         }
 
-        .glow-text {
-            text-shadow: 0 0 8px #64b5f6;
+        .ai-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            border-top: 1px dashed rgba(60, 110, 160, 0.3);
+            margin-top: 1rem;
+            padding-top: 0.8rem;
+            font-size: 0.8rem;
+            gap: 0.6rem;
+            color: #2c4a6e;
         }
 
-        @media (max-width: 620px) {
-            .simulator-card { padding: 18px; }
-            .stats-dashboard { flex-direction: column; align-items: stretch; }
-            .btn { padding: 12px 24px; font-size: 20px; }
+        /* 下载按钮区域 (相对定位容器) */
+        .download-wrapper {
+            position: relative;
+            margin-top: 1.8rem;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .download-btn {
+            background: #ffffff;
+            border: 1px solid #bfd4ec;
+            color: #1f3a5f;
+            font-weight: 700;
+            padding: 0.9rem 1.2rem;
+            border-radius: 60px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.25s;
+            width: 100%;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            font-family: inherit;
+        }
+
+        .download-btn i {
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+            color: #2c6280;
+        }
+
+        .download-btn:hover {
+            background: #f1f6fe;
+            border-color: #6f9cd0;
+            transform: scale(0.98);
+            box-shadow: 0 6px 14px rgba(50, 100, 150, 0.12);
+            color: #0f2c48;
+        }
+
+        .download-btn:hover i {
+            transform: translateY(2px);
+        }
+
+        /* 下拉菜单 - 浅色高级玻璃质感 */
+        .dropdown-menu {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(16px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(100, 140, 190, 0.5);
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            padding: 0.6rem 0;
+            z-index: 100;
+            transition: all 0.2s ease;
+            transform-origin: bottom;
+            animation: menuPop 0.2s ease-out;
+        }
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0.75rem 1.2rem;
+            color: #1f3a5f;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.15s;
+            border-left: 3px solid transparent;
+        }
+
+        .dropdown-menu a i {
+            width: 24px;
+            font-size: 1rem;
+            color: #3a75b0;
+        }
+
+        .dropdown-menu a:hover {
+            background: rgba(90, 140, 210, 0.1);
+            border-left-color: #3a7bca;
+            padding-left: 1.6rem;
+            color: #0a2b48;
+        }
+
+        /* 第二个卡片简单按钮链接样式 (无下拉) */
+        .direct-download {
+            text-decoration: none;
+            display: block;
+        }
+
+        /* 自定义滚动条 - 浅色柔和风格 */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #9bb3cf;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6f8db0;
+        }
+
+        /* 动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes menuPop {
+            from {
+                opacity: 0;
+                transform: translateY(12px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* 响应式 */
+        @media (max-width: 780px) {
+            body {
+                padding: 1.2rem;
+            }
+            .hero h1 {
+                font-size: 2.6rem;
+            }
+            .card {
+                min-width: 280px;
+                padding: 1.4rem;
+            }
+            .spec-grid {
+                grid-template-columns: 1fr;
+            }
+            .app-icon {
+                width: 65px;
+                height: 65px;
+            }
+            .title-info h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            letter-spacing: 0.5px;
+            color: #2c4a6e;
+        }
+
+        i, .fas, .far {
+            pointer-events: none;
+        }
+        
+        /* 保证一些标签在浅色下清晰 */
+        .lib-list::-webkit-scrollbar-thumb {
+            background: #b9cef0;
+        }
+        .badge i, .lib-list span i, .spec-item i {
+            color: #3a71b0;
+        }
+        .ai-row i {
+            color: #427bb8;
+        }
+        .direct-download .download-btn {
+            background: #ffffff;
+        }
+        .direct-download .download-btn:hover {
+            background: #f1f6fe;
         }
     </style>
 </head>
 <body>
-    <div class="simulator-card">
-        <!-- 顶部面板 -->
-        <div class="stats-dashboard">
-            <div class="stat-item">
-                <span class="stat-label">💰 现金</span>
-                <span class="stat-value" id="cashDisplay">$10,000.00</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">📈 持仓</span>
-                <span class="stat-value" id="sharesDisplay">0 <small>股</small></span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">💹 当前价</span>
-                <span class="stat-value price-now" id="priceDisplay">$100.00</span>
-            </div>
-            <div class="day-badge">
-                <span style="font-size: 14px; color: #b7cef0;">⏳ 第</span>
-                <span class="day-number" id="dayDisplay">1</span>
-                <span style="font-size: 14px; color: #b7cef0;"> 天</span>
-                <div class="progress-container">
-                    <div class="progress-fill" id="timeProgress" style="width: 0%;"></div>
+<div class="container">
+    <div class="hero">
+        <h1>WUDI 软件作品园</h1>
+        <div class="glow"><i class="fas fa-crown"></i> 极致匠心 · 先锋技术栈 · AI助力 <i class="fas fa-code"></i></div>
+    </div>
+
+    <div class="cards-grid">
+        <!-- 卡片 1 : WD-pylog (个人记录软件) 具备高级下拉菜单 -->
+        <div class="card">
+            <div class="card-header">
+                <div class="app-icon">
+                    <img src="./app/1.png" alt="WD-pylog icon" onerror="this.src='https://placehold.co/80x80/d9e3f0/3a6ea5?text=PyLog'">
                 </div>
-                <span id="secondDisplay" style="font-size: 16px;">0/10 秒</span>
+                <div class="title-info">
+                    <h2>WD-pylog</h2>
+                    <span class="category"><i class="fas fa-pen-alt"></i> 个人记录软件</span>
+                </div>
+            </div>
+            <!-- 核心语言 & GUI 标签 -->
+            <div class="badge-list">
+                <span class="badge"><i class="fab fa-python"></i> Python 3.13</span>
+                <span class="badge"><i class="fas fa-desktop"></i> Tkinter GUI</span>
+                <span class="badge"><i class="fas fa-box"></i> Nuitka 打包</span>
+                <span class="badge"><i class="fas fa-database"></i> SQLite</span>
+                <span class="badge"><i class="fas fa-hdd"></i> 本地存储</span>
+            </div>
+            <!-- 扩展信息网格 -->
+            <div class="spec-grid">
+                <div class="spec-item"><i class="fas fa-hourglass-half"></i> 耗时：10个月</div>
+                <div class="spec-item"><i class="fas fa-shield-alt"></i> 维护：简单</div>
+                <div class="spec-item"><i class="fas fa-code-branch"></i> 版本：38个版本 + 3延申版</div>
+                <div class="spec-item"><i class="fas fa-calendar-alt"></i> 开发：2025.03.26</div>
+            </div>
+            <!-- 第三方库展示 -->
+            <div style="font-size: 0.75rem; font-weight: 500; margin-top: 6px; color:#1f3f62;"><i class="fas fa-cubes"></i> 核心依赖库</div>
+            <div class="lib-list">
+                <span>matplotlib</span><span>numpy</span><span>opencv-python</span><span>pillow</span><span>keyboard</span>
+                <span>pygame</span><span>moviepy</span><span>pywebview</span><span>requests</span><span>psutil</span><span>wmi</span>
+            </div>
+            <!-- AI辅助信息 -->
+            <div class="ai-row">
+                <span><i class="fas fa-robot"></i> AI: DeepseekR1, Kimik1.5, k2, 豆包</span>
+                <span><i class="fas fa-microchip"></i> 智能辅助深度协同</span>
+            </div>
+            <!-- 下载区域 (带下拉菜单) -->
+            <div class="download-wrapper" id="pylog-download-wrapper">
+                <button class="download-btn" id="pylogDownloadBtn">
+                    <i class="fas fa-download"></i> 获取 WD-pylog <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
+                </button>
+                <!-- 下拉菜单结构 内置四个版本链接 -->
+                <div class="dropdown-menu" id="pylogDropdown" style="display: none;">
+                    <a href="https://dwfw.com" target="_blank" rel="noopener noreferrer" class="menu-item">
+                        <i class="fas fa-rocket"></i> WD-pylog 最新版 (v3.8)1gb
+                    </a>
+                    <a href="https://dwffesfes.com" target="_blank" rel="noopener noreferrer" class="menu-item">
+                        <i class="fas fa-medal"></i> WUDI 1.4 纪念版200mb
+                    </a>
+                    <a href="https://dwefsf.com" target="_blank" rel="noopener noreferrer" class="menu-item">
+                        <i class="fas fa-gem"></i> WUDI 1.4 纪念版 Pro200mb
+                    </a>
+                    <a href="https://dwfsefsksf.com" target="_blank" rel="noopener noreferrer" class="menu-item">
+                        <i class="fas fa-star-of-life"></i> WUDI 特别版200mb
+                    </a>
+                </div>
             </div>
         </div>
 
-        <!-- 图表区域 -->
-        <div class="chart-container">
-            <canvas id="stockCanvas" width="800" height="280"></canvas>
-        </div>
-
-        <!-- 交易面板 -->
-        <div class="trade-panel">
-            <div class="trade-row">
-                <div class="quantity-control">
-                    <button id="decQty">−</button>
-                    <input type="number" id="tradeQty" value="10" min="1" step="1">
-                    <button id="incQty">+</button>
+        <!-- 卡片 2 : WD-weblog (个人记录软件 纯HTML前端风格) -->
+        <div class="card">
+            <div class="card-header">
+                <div class="app-icon">
+                    <img src="./app/2.png" alt="WD-weblog icon" onerror="this.src='https://placehold.co/80x80/d9e3f0/3a6ea5?text=WebLog'">
                 </div>
-                <div class="buy-sell">
-                    <button class="btn btn-buy" id="buyBtn">买入</button>
-                    <button class="btn btn-sell" id="sellBtn">卖出</button>
+                <div class="title-info">
+                    <h2>WD-weblog</h2>
+                    <span class="category"><i class="fas fa-globe"></i> 个人记录软件 · 混合架构</span>
                 </div>
             </div>
-
-            <!-- 消息区域 -->
-            <div class="message-area" id="messageBox">
-                ⚡ 欢迎，每10秒为一天。点击买入/卖出。
+            <div class="badge-list">
+                <span class="badge"><i class="fab fa-python"></i> Python 3.13</span>
+                <span class="badge"><i class="fab fa-html5"></i> HTML / Js</span>
+                <span class="badge"><i class="fas fa-window-maximize"></i> 本地Webview2</span>
+                <span class="badge"><i class="fas fa-box"></i> Nuitka 打包</span>
+                <span class="badge"><i class="fas fa-database"></i> SQLite</span>
             </div>
-
-            <!-- 辅助控制 -->
-            <div class="footer-controls">
-                <button class="btn-secondary" id="pauseBtn">⏸️ 暂停</button>
-                <button class="btn-secondary" id="resetBtn">⟲ 重置</button>
+            <div class="spec-grid">
+                <div class="spec-item"><i class="fas fa-hourglass-start"></i> 耗时：3天</div>
+                <div class="spec-item"><i class="fas fa-exclamation-triangle"></i> 维护：重点迭代</div>
+                <div class="spec-item"><i class="fas fa-tag"></i> 版本：1.0 首发版</div>
+                <div class="spec-item"><i class="fas fa-calendar-alt"></i> 开发：2026.03.13</div>
+            </div>
+            <!-- GUI及技术亮点描述 -->
+            <div style="margin: 12px 0 6px 0; display: flex; gap: 8px; flex-wrap: wrap;">
+                <span class="badge"><i class="fas fa-code"></i> 前端: HTML/CSS/JS</span>
+                <span class="badge"><i class="fas fa-layer-group"></i> webview 2内核</span>
+                <span class="badge"><i class="fas fa-database"></i> SQLite 本地存储</span>
+            </div>
+            <!-- 第三方库列表: 轻量说明 -->
+            <div class="lib-list" style="margin-top: 4px;">
+                <span>Flask-Lite</span><span>wxpython</span><span>sqlite3</span>
+            </div>
+            <!-- AI辅助信息 -->
+            <div class="ai-row">
+                <span><i class="fas fa-brain"></i> AI: Qwen3-Max-Thinking, Deepseekv3.2</span>
+                <span><i class="fas fa-bolt"></i> 敏捷开发·双模型驱动</span>
+            </div>
+            <!-- 直接下载按钮，无下拉菜单 链接需求 https://dwfsgukf.com -->
+            <div class="download-wrapper" style="margin-top: 1.8rem;">
+                <a href="https://dwfsgukf.com" target="_blank" rel="noopener noreferrer" class="direct-download">
+                    <button class="download-btn" style="cursor: pointer;">
+                        <i class="fas fa-download"></i> 立即获取 WD-weblog-20mb
+                        <i class="fas fa-external-link-alt" style="font-size: 0.8rem;"></i>
+                    </button>
+                </a>
             </div>
         </div>
     </div>
+    <div class="footer-note">
+        <i class="fas fa-crown"></i> WUDI STUDIO · 原生力量 & 前沿技术栈 | 每一行代码皆为匠心
+    </div>
+</div>
 
-    <script>
-        (function() {
-            // ---------- 配置 ----------
-            const INIT_CASH = 10000.00;
-            const INIT_PRICE = 100.00;
-            const MAX_HISTORY = 200;            // 图表显示最多点数
-            const TICK_SECONDS = 10;              // 10秒一天
-            const VOLATILITY = 0.018;              // 每秒波动幅度 ±1.8% (日波动~ ±5.7%左右)
-
-            // ---------- 全局状态 ----------
-            let cash = INIT_CASH;
-            let shares = 0;
-            let price = INIT_PRICE;
-            let historyPrices = [];                // 存储历史价格 (最新在最后)
-            let day = 1;
-            let second = 0;                         // 0 ~ 9
-
-            // 定时器
-            let timer = null;
-            let isPaused = false;                   // 辅助界面按钮文字
-
-            // DOM 元素
-            const cashDisplay = document.getElementById('cashDisplay');
-            const sharesDisplay = document.getElementById('sharesDisplay');
-            const priceDisplay = document.getElementById('priceDisplay');
-            const dayDisplay = document.getElementById('dayDisplay');
-            const secondDisplay = document.getElementById('secondDisplay');
-            const timeProgress = document.getElementById('timeProgress');
-            const messageBox = document.getElementById('messageBox');
-
-            const canvas = document.getElementById('stockCanvas');
-            let ctx = canvas.getContext('2d');
-
-            const tradeQty = document.getElementById('tradeQty');
-            const decQty = document.getElementById('decQty');
-            const incQty = document.getElementById('incQty');
-            const buyBtn = document.getElementById('buyBtn');
-            const sellBtn = document.getElementById('sellBtn');
-            const pauseBtn = document.getElementById('pauseBtn');
-            const resetBtn = document.getElementById('resetBtn');
-
-            // ---------- 辅助函数：保留两位小数 (避免浮点噪声) ----------
-            const roundMoney = (val) => Math.round(val * 100) / 100;
-
-            // 显示消息（几秒后消失部分，但保留最后一条）
-            let msgTimeout;
-            const setMessage = (text, isSuccess = true) => {
-                if (msgTimeout) clearTimeout(msgTimeout);
-                messageBox.textContent = text;
-                messageBox.style.borderLeftColor = isSuccess ? '#4f9e7a' : '#b13e5c';
-                // 普通消息保留，但不要永久覆盖，5秒后恢复提示
-                msgTimeout = setTimeout(() => {
-                    messageBox.textContent = '⚡ 每10秒一天，继续交易吧';
-                    messageBox.style.borderLeftColor = '#4f6e9e';
-                }, 5000);
-            };
-
-            // ---------- 生成初始历史价格 (从INIT_PRICE出发随机游走) ----------
-            const generateInitialHistory = () => {
-                const hist = [];
-                let cur = INIT_PRICE;
-                for (let i = 0; i < MAX_HISTORY; i++) {
-                    hist.push(cur);
-                    // 随机下一步 (保证最后价格不等于初始，但是波动)
-                    if (i < MAX_HISTORY - 1) {
-                        let change = (Math.random() - 0.5) * 2 * VOLATILITY * cur;
-                        let next = cur + change;
-                        next = Math.max(0.02, roundMoney(next));
-                        cur = next;
+<script>
+    (function() {
+        // ---------- WD-pylog 下拉菜单交互 ----------
+        const downloadBtn = document.getElementById('pylogDownloadBtn');
+        const dropdown = document.getElementById('pylogDropdown');
+        const wrapper = document.getElementById('pylog-download-wrapper');
+        
+        // 确保菜单初始隐藏
+        let isMenuOpen = false;
+        
+        // 切换菜单显示/隐藏，并动态计算位置 (以防滚动偏移)
+        function toggleMenu(e) {
+            if(e) e.stopPropagation();
+            if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+                // 显示菜单: 先重新计算位置 (相对于按钮正下方且采用bottom:auto? 原本使用 bottom:100% 上方显示
+                // 但设计为了让菜单在按钮上方出现更符合现代化，但是按钮靠底部，为了避免超出卡片，改用向上展开（原css设置bottom:100%上方弹出）
+                // 然而卡片内空间足够，向上弹出可能会超出卡片顶部? 但卡片高度足够一般正常, 为了极佳体验, 让菜单出现在按钮上方（原css已经 bottom:100%+12px）
+                // 但为了更好观看，如果菜单过高超出窗口顶部，可动态改为向下展开。这里简单保持优雅向上
+                // 确保重新设置样式无异常, 并且重新计算若超出视口则改为向下展开
+                const btnRect = downloadBtn.getBoundingClientRect();
+                const menuHeight = 210; // 预估菜单高度约200px
+                const viewportTop = window.scrollY;
+                const spaceAbove = btnRect.top - viewportTop;
+                // 如果上方空间不足，则改为向下展开(修改样式)
+                if (spaceAbove < menuHeight + 20) {
+                    dropdown.style.bottom = 'auto';
+                    dropdown.style.top = 'calc(100% + 10px)';
+                    dropdown.style.transformOrigin = 'top';
+                } else {
+                    dropdown.style.bottom = 'calc(100% + 12px)';
+                    dropdown.style.top = 'auto';
+                    dropdown.style.transformOrigin = 'bottom';
+                }
+                dropdown.style.display = 'block';
+                isMenuOpen = true;
+            } else {
+                dropdown.style.display = 'none';
+                isMenuOpen = false;
+            }
+        }
+        
+        // 关闭菜单
+        function closeMenu() {
+            if (dropdown) dropdown.style.display = 'none';
+            isMenuOpen = false;
+        }
+        
+        // 点击按钮时切换
+        if (downloadBtn && dropdown) {
+            downloadBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleMenu(e);
+            });
+            
+            // 点击菜单内部任何a链接时，先跳转，然后关闭菜单 (避免冒泡关闭)
+            const menuItems = dropdown.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    // 正常打开链接，但是延迟一点点关闭菜单保证视觉流畅
+                    setTimeout(() => {
+                        closeMenu();
+                    }, 50);
+                });
+            });
+            
+            // 点击页面任意地方，如果菜单开着就关闭，但是要排除按钮和菜单本身
+            document.addEventListener('click', function(e) {
+                if (!wrapper) return;
+                // 如果点击的目标不在wrapper内部
+                if (!wrapper.contains(e.target)) {
+                    if (dropdown.style.display === 'block') {
+                        closeMenu();
                     }
                 }
-                price = cur;   // 最后一个价格作为当前价
-                return hist;
-            };
-
-            historyPrices = generateInitialHistory();
-
-            // ---------- 更新价格 (每秒调用) ----------
-            const tickPrice = () => {
-                // 随机游走一步
-                let change = (Math.random() - 0.5) * 2 * VOLATILITY * price;
-                let newPrice = price + change;
-                newPrice = Math.max(0.02, roundMoney(newPrice));
-                price = newPrice;
-
-                // 加入历史，保持最大长度
-                historyPrices.push(price);
-                if (historyPrices.length > MAX_HISTORY) {
-                    historyPrices.shift();
+            });
+            
+            // 防止滚动或者resize时菜单不关闭：优雅保留，滚动时最好关闭
+            window.addEventListener('scroll', function() {
+                if (dropdown && dropdown.style.display === 'block') {
+                    closeMenu();
                 }
-            };
-
-            // ---------- 更新时间相关 (day, second)，并且触发价格变动 ----------
-            const advanceTime = () => {
-                second++;
-                if (second >= TICK_SECONDS) {
-                    second = 0;
-                    day++;
+            });
+            
+            // 可选：如果resize窗口改变则关闭
+            window.addEventListener('resize', function() {
+                if (dropdown && dropdown.style.display === 'block') closeMenu();
+            });
+        }
+        
+        // 针对第二张卡片直接链接没有任何额外逻辑，但确保外部链接安全；且按钮点击触发的a标签行为完美。
+        // 附加优雅效果: 防止图片加载失败显示占位文字
+        const images = document.querySelectorAll('.app-icon img');
+        images.forEach(img => {
+            img.addEventListener('error', function() {
+                this.style.objectFit = 'cover';
+                this.style.padding = '12px';
+                // 可增加背景渐变占位
+                if (this.src.includes('1.png')) {
+                    this.alt = 'WD-pylog';
+                } else if (this.src.includes('2.png')) {
+                    this.alt = 'WD-weblog';
                 }
-
-                // 每秒变动价格
-                tickPrice();
-            };
-
-            // ---------- 刷新全部UI (文字、进度、画图) ----------
-            const updateUI = () => {
-                // 更新文本
-                cashDisplay.textContent = `$${cash.toFixed(2)}`;
-                sharesDisplay.textContent = `${shares} `;
-                priceDisplay.textContent = `$${price.toFixed(2)}`;
-                dayDisplay.textContent = day;
-                secondDisplay.textContent = `${second}/${TICK_SECONDS} 秒`;
-
-                // 进度条 (second / 10)
-                const progressPercent = (second / TICK_SECONDS) * 100;
-                timeProgress.style.width = `${progressPercent}%`;
-
-                // 重绘图表
-                drawChart();
-            };
-
-            // ---------- 绘图 (丝滑画布) ----------
-            const drawChart = () => {
-                // 适配视网膜屏 / 动态尺寸
-                const container = canvas.parentNode;
-                const containerWidth = container.clientWidth;
-                const containerHeight = 280; // 固定高度
-
-                // 设置canvas实际像素（保证锐利）
-                const dpr = window.devicePixelRatio || 1;
-                canvas.width = containerWidth * dpr;
-                canvas.height = containerHeight * dpr;
-                canvas.style.width = containerWidth + 'px';
-                canvas.style.height = containerHeight + 'px';
-                ctx.scale(dpr, dpr);
-
-                // 暗色背景
-                ctx.clearRect(0, 0, containerWidth, containerHeight);
-
-                if (!historyPrices || historyPrices.length < 2) return;
-
-                const len = historyPrices.length;
-                const padding = { top: 20, bottom: 30, left: 38, right: 28 };
-                const graphWidth = containerWidth - padding.left - padding.right;
-                const graphHeight = containerHeight - padding.top - padding.bottom;
-
-                // 计算价格范围 (加上一点边距)
-                let minPrice = Math.min(...historyPrices);
-                let maxPrice = Math.max(...historyPrices);
-                const range = maxPrice - minPrice;
-                // 避免范围为零
-                if (range < 0.001) {
-                    minPrice = price * 0.95;
-                    maxPrice = price * 1.05;
-                } else {
-                    // 扩展10%留白
-                    const extra = range * 0.1;
-                    minPrice = Math.max(0, minPrice - extra);
-                    maxPrice = maxPrice + extra;
-                }
-
-                const yScale = graphHeight / (maxPrice - minPrice || 1);
-
-                // 绘制网格线 (暗纹)
-                ctx.beginPath();
-                ctx.strokeStyle = "#25344f";
-                ctx.lineWidth = 1;
-                for (let i = 0; i <= 4; i++) {
-                    const y = padding.top + (i / 4) * graphHeight;
-                    ctx.beginPath();
-                    ctx.moveTo(padding.left, y);
-                    ctx.lineTo(containerWidth - padding.right, y);
-                    ctx.strokeStyle = '#1f2b3e';
-                    ctx.stroke();
-                }
-
-                // 绘制折线
-                ctx.beginPath();
-                ctx.lineWidth = 3;
-                ctx.strokeStyle = '#5db0e2';
-                ctx.shadowColor = '#3f96e0';
-                ctx.shadowBlur = 12;
-                ctx.lineJoin = 'round';
-                ctx.lineCap = 'round';
-
-                for (let i = 0; i < len; i++) {
-                    const x = padding.left + (i / (len - 1)) * graphWidth;
-                    const y = padding.top + graphHeight - ( (historyPrices[i] - minPrice) * yScale );
-                    if (i === 0) ctx.moveTo(x, y);
-                    else ctx.lineTo(x, y);
-                }
-                ctx.stroke();
-                ctx.shadowBlur = 0;
-
-                // 填充渐变下方
-                ctx.beginPath();
-                for (let i = 0; i < len; i++) {
-                    const x = padding.left + (i / (len - 1)) * graphWidth;
-                    const y = padding.top + graphHeight - ( (historyPrices[i] - minPrice) * yScale );
-                    if (i === 0) ctx.moveTo(x, y);
-                    else ctx.lineTo(x, y);
-                }
-                ctx.lineTo(padding.left + graphWidth, containerHeight - padding.bottom);
-                ctx.lineTo(padding.left, containerHeight - padding.bottom);
-                ctx.closePath();
-                const gradient = ctx.createLinearGradient(0, padding.top, 0, containerHeight - padding.bottom);
-                gradient.addColorStop(0, 'rgba(45, 140, 230, 0.25)');
-                gradient.addColorStop(1, 'rgba(20, 50, 100, 0.02)');
-                ctx.fillStyle = gradient;
-                ctx.fill();
-
-                // 画当前价格标记圆点
-                const lastX = padding.left + graphWidth;
-                const lastY = padding.top + graphHeight - ( (price - minPrice) * yScale );
-                ctx.beginPath();
-                ctx.arc(lastX, lastY, 8, 0, 2 * Math.PI);
-                ctx.fillStyle = '#ffc164';
-                ctx.shadowBlur = 18;
-                ctx.shadowColor = '#f0a500';
-                ctx.fill();
-                ctx.shadowBlur = 0;
-
-                // 标价格标签
-                ctx.font = 'bold 14px "Segoe UI", monospace';
-                ctx.fillStyle = '#e3efff';
-                ctx.fillText(`$${price.toFixed(2)}`, lastX - 50, lastY - 16);
-            };
-
-            // ---------- 交易逻辑 ----------
-            const handleBuy = () => {
-                let qty = parseInt(tradeQty.value, 10);
-                if (isNaN(qty) || qty < 1) qty = 1;
-                const cost = roundMoney(price * qty);
-                if (cash >= cost) {
-                    cash = roundMoney(cash - cost);
-                    shares += qty;
-                    setMessage(`✅ 买入 ${qty} 股，成交价 $${price.toFixed(2)}`, true);
-                } else {
-                    setMessage(`❌ 资金不足！需要 $${cost.toFixed(2)}，可用 $${cash.toFixed(2)}`, false);
-                }
-                updateUI();
-            };
-
-            const handleSell = () => {
-                let qty = parseInt(tradeQty.value, 10);
-                if (isNaN(qty) || qty < 1) qty = 1;
-                if (shares >= qty) {
-                    const income = roundMoney(price * qty);
-                    cash = roundMoney(cash + income);
-                    shares -= qty;
-                    setMessage(`✅ 卖出 ${qty} 股，成交价 $${price.toFixed(2)}`, true);
-                } else {
-                    setMessage(`❌ 持仓不足！只有 ${shares} 股`, false);
-                }
-                updateUI();
-            };
-
-            // ---------- 数量加减 ----------
-            const adjustQty = (delta) => {
-                let val = parseInt(tradeQty.value, 10);
-                if (isNaN(val)) val = 1;
-                val = Math.max(1, val + delta);
-                tradeQty.value = val;
-            };
-
-            // ---------- 重置 ----------
-            const resetSim = () => {
-                // 暂停当前计时
-                if (timer) {
-                    clearInterval(timer);
-                    timer = null;
-                }
-
-                // 重置状态
-                cash = INIT_CASH;
-                shares = 0;
-                day = 1;
-                second = 0;
-                historyPrices = generateInitialHistory(); // 重新生成历史
-                price = historyPrices[historyPrices.length - 1];
-                tradeQty.value = 10;
-                setMessage('🔄 已重置，重新开始', true);
-                updateUI();
-
-                // 重启定时器 (自动开始)
-                if (!timer) {
-                    timer = setInterval(() => {
-                        advanceTime();
-                        updateUI();
-                    }, 1000); // 每秒更新
-                    pauseBtn.textContent = '⏸️ 暂停';
-                    isPaused = false;
-                }
-            };
-
-            // ---------- 暂停/继续 ----------
-            const togglePause = () => {
-                if (timer) {
-                    // 正在运行 -> 暂停
-                    clearInterval(timer);
-                    timer = null;
-                    pauseBtn.textContent = '▶️ 开始';
-                    setMessage('⏸️ 暂停中，价格不变', false);
-                } else {
-                    // 启动
-                    timer = setInterval(() => {
-                        advanceTime();
-                        updateUI();
-                    }, 1000);
-                    pauseBtn.textContent = '⏸️ 暂停';
-                    setMessage('▶️ 继续模拟', true);
-                }
-                // 更新UI确保显示最新状态
-                updateUI();
-            };
-
-            // ---------- 绑定事件 & 初始化 ----------
-            const init = () => {
-                // 初始显示
-                updateUI();
-
-                // 启动定时器
-                timer = setInterval(() => {
-                    advanceTime();
-                    updateUI();
-                }, 1000);
-                pauseBtn.textContent = '⏸️ 暂停';
-
-                // 加减按钮
-                decQty.addEventListener('click', () => adjustQty(-1));
-                incQty.addEventListener('click', () => adjustQty(1));
-
-                // 交易按钮
-                buyBtn.addEventListener('click', handleBuy);
-                sellBtn.addEventListener('click', handleSell);
-
-                // 控制按钮
-                pauseBtn.addEventListener('click', togglePause);
-                resetBtn.addEventListener('click', resetSim);
-
-                // 输入框限制
-                tradeQty.addEventListener('change', function() {
-                    let v = parseInt(this.value, 10);
-                    if (isNaN(v) || v < 1) this.value = 1;
-                });
-
-                // 窗口大小变化时重绘（丝滑适应）
-                window.addEventListener('resize', () => {
-                    drawChart();
-                });
-
-                // 额外，交易后更新（已经包含）
-            };
-
-            // 启动一切
-            init();
-        })();
-    </script>
+            });
+        });
+        
+        // 稍微添加控制台彩蛋
+        console.log("%c✨ WUDI 软件作品园 | 浅色匠心 · 灵感新章", "color: #2c6280; font-size: 16px; font-weight: bold;");
+        
+        // 确保下拉菜单初始隐藏状态兼容
+        if (dropdown) dropdown.style.display = 'none';
+        
+        // 增加卡片入场后平滑背景跟随（无需额外）
+        // 附加一个tooltip风格提示下载菜单特性（无需额外）
+    })();
+</script>
 </body>
 </html>
