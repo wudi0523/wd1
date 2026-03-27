@@ -108,7 +108,7 @@
             display: flex;
             gap: 1.2rem;
             align-items: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             flex-wrap: wrap;
         }
 
@@ -144,17 +144,52 @@
             color: transparent;
         }
 
+        /* 通用 category 基底 */
         .category {
             display: inline-block;
-            background: rgba(70, 120, 190, 0.12);
             backdrop-filter: blur(2px);
             padding: 0.2rem 0.9rem;
             border-radius: 30px;
             font-size: 0.75rem;
-            font-weight: 600;
+            font-weight: 700;
             margin-top: 6px;
+            margin-right: 6px;
             border: 0.5px solid rgba(60, 110, 170, 0.3);
-            color: #2c4a7a;
+            transition: all 0.2s;
+        }
+        /* 授权版特殊样式 (金色尊贵) */
+        .category-paid {
+            background: linear-gradient(135deg, #f9e7b3, #f5cf86);
+            color: #7a5c1a;
+            border-left: 3px solid #e6b422;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        /* 免费版特殊样式 (清新翠绿) */
+        .category-free {
+            background: linear-gradient(135deg, #d9f0e1, #bef5d5);
+            color: #1c6e3f;
+            border-left: 3px solid #2ecc71;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        /* GUI 技术特殊标签 (炫彩渐变) */
+        .tech-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(115deg, #2b5876, #1e3c72);
+            color: white;
+            padding: 0.2rem 1rem;
+            border-radius: 60px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            backdrop-filter: blur(2px);
+            border: 0.5px solid rgba(255,255,240,0.3);
+        }
+        .tech-badge i {
+            font-size: 0.7rem;
+            color: #ffefb9;
         }
 
         .spec-grid {
@@ -280,7 +315,7 @@
             transform: translateY(2px);
         }
 
-        /* 下拉菜单 - 始终向上展开 */
+        /* 下拉菜单 - 仅用于 pylog 保持向上展开 */
         .dropdown-menu {
             position: absolute;
             bottom: calc(100% + 12px);
@@ -335,78 +370,39 @@
             width: 5px;
             height: 5px;
         }
-
         ::-webkit-scrollbar-track {
             background: #e2e8f0;
             border-radius: 10px;
         }
-
         ::-webkit-scrollbar-thumb {
             background: #9bb3cf;
             border-radius: 10px;
         }
-
         ::-webkit-scrollbar-thumb:hover {
             background: #6f8db0;
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
         }
-
         @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.96);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.96);}
+            to { opacity: 1; transform: scale(1);}
         }
-
         @keyframes menuPop {
-            from {
-                opacity: 0;
-                transform: translateY(12px) scale(0.96);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+            from { opacity: 0; transform: translateY(12px) scale(0.96);}
+            to { opacity: 1; transform: translateY(0) scale(1);}
         }
 
         @media (max-width: 780px) {
-            body {
-                padding: 1.2rem;
-            }
-            .hero h1 {
-                font-size: 2.6rem;
-            }
-            .card {
-                min-width: 280px;
-                padding: 1.4rem;
-            }
-            .spec-grid {
-                grid-template-columns: 1fr;
-            }
-            .app-icon {
-                width: 65px;
-                height: 65px;
-            }
-            .title-info h2 {
-                font-size: 1.5rem;
-            }
-            .dropdown-menu {
-                max-height: 240px;
-            }
+            body { padding: 1.2rem; }
+            .hero h1 { font-size: 2.6rem; }
+            .card { min-width: 280px; padding: 1.4rem; }
+            .spec-grid { grid-template-columns: 1fr; }
+            .app-icon { width: 65px; height: 65px; }
+            .title-info h2 { font-size: 1.5rem; }
+            .dropdown-menu { max-height: 240px; }
         }
 
         .footer-note {
@@ -417,37 +413,30 @@
             letter-spacing: 0.5px;
             color: #2c4a6e;
         }
-
-        i, .fas, .far {
-            pointer-events: none;
-        }
-
-        .lib-list::-webkit-scrollbar-thumb {
-            background: #b9cef0;
-        }
-        .badge i, .lib-list span i, .spec-item i {
-            color: #3a71b0;
-        }
-        .ai-row i {
-            color: #427bb8;
-        }
-        .direct-download .download-btn {
-            background: #ffffff;
-        }
-        .direct-download .download-btn:hover {
-            background: #f1f6fe;
+        i, .fas, .far { pointer-events: none; }
+        .lib-list::-webkit-scrollbar-thumb { background: #b9cef0; }
+        .badge i, .lib-list span i, .spec-item i { color: #3a71b0; }
+        .ai-row i { color: #427bb8; }
+        
+        /* 技术标签行 */
+        .tech-row {
+            margin: 12px 0 6px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
         }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="hero">
-        <h1>WUDI 软件作品</h1>
+        <h1>WUDI 软件作品园</h1>
         <div class="glow"><i class="fas fa-crown"></i> 极致匠心 · 先锋技术栈 · AI助力 <i class="fas fa-code"></i></div>
     </div>
 
     <div class="cards-grid">
-        <!-- 卡片 1 : WD-pylog -->
+        <!-- 卡片 1 : WD-pylog (授权版 + ttkbootstrap) -->
         <div class="card">
             <div class="card-header">
                 <div class="app-icon">
@@ -455,18 +444,24 @@
                 </div>
                 <div class="title-info">
                     <h2>WD-pylog</h2>
-                    <span class="category"><i class="fas fa-pen-alt"></i> 个人记录软件</span>
-                    <span class="category"><i class="fas fa-pen-alt"></i> 激活码授权版</span>
+                    <div>
+                        <span class="category"><i class="fas fa-pen-alt"></i> 专业个人记录软件</span>
+                        <span class="category category-paid"><i class="fas fa-key"></i> 激活码授权版</span>
+                    </div>
                 </div>
+            </div>
+            <!-- GUI技术特殊标签 -->
+            <div class="tech-row">
+                <span class="tech-badge"><i class="fas fa-palette"></i> GUI: ttkbootstrap</span>
             </div>
             <div class="badge-list">
                 <span class="badge"><i class="fab fa-python"></i> Python 3.13</span>
-                <span class="badge"><i class="fas fa-desktop"></i> Tkinter GUI</span>
+                <span class="badge"><i class="fas fa-desktop"></i> Tkinter + ttk</span>
                 <span class="badge"><i class="fas fa-box"></i> Nuitka 打包</span>
                 <span class="badge"><i class="fas fa-database"></i> SQLite</span>
                 <span class="badge"><i class="fas fa-hdd"></i> 本地存储</span>
-                <span class="badge"><i class="fas fa-hdd"></i> 下载密码为2658</span>
-                <span class="badge"><i class="fas fa-hdd"></i> 安装密码和激活码请联系2658521367@qq.com获取</span>
+                <span class="badge"><i class="fas fa-lock"></i> 下载密码:2658</span>
+                <span class="badge"><i class="fas fa-envelope"></i> 激活码:2658521367@qq.com</span>
             </div>
             <div class="spec-grid">
                 <div class="spec-item"><i class="fas fa-hourglass-half"></i> 耗时：10个月</div>
@@ -504,7 +499,7 @@
             </div>
         </div>
 
-        <!-- 卡片 2 : WD-weblog -->
+        <!-- 卡片 2 : WD-weblog (纯免费 + HTML/CSS)  根据实际import更新依赖库 -->
         <div class="card">
             <div class="card-header">
                 <div class="app-icon">
@@ -512,16 +507,23 @@
                 </div>
                 <div class="title-info">
                     <h2>WD-weblog</h2>
-                    <span class="category"><i class="fas fa-globe"></i> 个人记录软件 · 混合架构</span>
-                    <span class="category"><i class="fas fa-globe"></i> 纯免费版</span>
+                    <div>
+                        <span class="category"><i class="fas fa-globe"></i> 个人记录软件 </span>
+                        <span class="category category-free"><i class="fas fa-gift"></i> 纯免费版</span>
+                    </div>
                 </div>
+            </div>
+            <div class="tech-row">
+                <span class="tech-badge"><i class="fab fa-html5"></i> GUI: HTML/CSS/JS</span>
             </div>
             <div class="badge-list">
                 <span class="badge"><i class="fab fa-python"></i> Python 3.13</span>
                 <span class="badge"><i class="fab fa-html5"></i> HTML / Js</span>
                 <span class="badge"><i class="fas fa-window-maximize"></i> 局域网访问</span>
                 <span class="badge"><i class="fas fa-box"></i> pyinstaller 打包</span>
-                <span class="badge"><i class="fas fa-database"></i> SQLite</span><span class="badge"><i class="fas fa-database"></i> 初始密码123456</span><span class="badge"><i class="fas fa-database"></i> 可导入WD-pylog数据合并</span>
+                <span class="badge"><i class="fas fa-database"></i> SQLite</span>
+                <span class="badge"><i class="fas fa-unlock-alt"></i> 初始密码123456</span>
+                <span class="badge"><i class="fas fa-exchange-alt"></i> 可导入WD-pylog数据</span>
             </div>
             <div class="spec-grid">
                 <div class="spec-item"><i class="fas fa-hourglass-start"></i> 耗时：3天</div>
@@ -534,8 +536,9 @@
                 <span class="badge"><i class="fas fa-layer-group"></i> webview 2内核</span>
                 <span class="badge"><i class="fas fa-database"></i> SQLite 本地存储</span>
             </div>
+            <!-- 根据提供的import更新依赖库：wxPython, Flask, 以及sqlite3 -->
             <div class="lib-list" style="margin-top: 4px;">
-                <span>Flask-Lite</span><span>wxpython</span><span>sqlite3</span>
+                <span>wxPython (wx.html2)</span><span>Flask</span><span>sqlite3</span>
             </div>
             <div class="ai-row">
                 <span><i class="fas fa-brain"></i> AI: Qwen3-Max-Thinking, Deepseekv3.2</span>
@@ -550,6 +553,106 @@
                 </a>
             </div>
         </div>
+
+        <!-- 卡片 3 : WD-WebArticle (wxPython+Flask+sqlite 纯免费) 根据实际import更新依赖库 -->
+        <div class="card">
+            <div class="card-header">
+                <div class="app-icon">
+                    <img src="./app/3.png" alt="WD-WebArticle icon" onerror="this.src='https://placehold.co/80x80/d9e3f0/3a6ea5?text=WebArticle'">
+                </div>
+                <div class="title-info">
+                    <h2>WD-WebArticle</h2>
+                    <div>
+                        <span class="category"><i class="fas fa-newspaper"></i> 文章软件</span>
+                        <span class="category category-free"><i class="fas fa-gift"></i> 纯免费版</span>
+                    </div>
+                </div>
+            </div>
+            <div class="tech-row">
+                <span class="tech-badge"><i class="fab fa-html5"></i> GUI: HTML/CSS 混合前端</span>
+            </div>
+            <div class="badge-list">
+                <span class="badge"><i class="fab fa-python"></i> Python 3.13</span>
+                <span class="badge"><i class="fab fa-wxpython"></i> wxPython</span>
+                <span class="badge"><i class="fas fa-flask"></i> Flask 微服务</span>
+                <span class="badge"><i class="fas fa-database"></i> SQLite</span>
+                <span class="badge"><i class="fas fa-box"></i> pyinstaller 打包</span>
+                <span class="badge"><i class="fas fa-laptop-code"></i> 局域网访问</span>
+            </div>
+            <div class="spec-grid">
+                <div class="spec-item"><i class="fas fa-hourglass-half"></i> 耗时：2天</div>
+                <div class="spec-item"><i class="fas fa-shield-alt"></i> 维护：简单维护</div>
+                <div class="spec-item"><i class="fas fa-code-branch"></i> 版本：1.0 首发版</div>
+                <div class="spec-item"><i class="fas fa-calendar-alt"></i> 开发：2026.03.27</div>
+            </div>
+            <div style="font-size: 0.75rem; font-weight: 500; margin-top: 6px; color:#1f3f62;"><i class="fas fa-cubes"></i> 核心依赖库</div>
+            <!-- 根据提供的import更新：wxPython, Flask, sqlite3 -->
+            <div class="lib-list">
+                <span>wxPython (wx.html2)</span><span>Flask</span><span>sqlite3</span>
+            </div>
+            <div class="ai-row">
+                <span><i class="fas fa-robot"></i> AI: deepseekv3.2, kimik2.5思考</span>
+                <span><i class="fas fa-brain"></i> 深度语义解析</span>
+            </div>
+            <div class="download-wrapper" style="margin-top: 1.8rem;">
+                <a href="http://vesibv.com" target="_blank" rel="noopener noreferrer" class="direct-download">
+                    <button class="download-btn" style="cursor: pointer;">
+                        <i class="fas fa-download"></i> 立即获取 WD-WebArticle (暂无上线)
+                        <i class="fas fa-external-link-alt" style="font-size: 0.8rem;"></i>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <!-- 卡片 4 : WD-WebDown 纯免费版，依赖库暂未公开 -->
+        <div class="card">
+            <div class="card-header">
+                <div class="app-icon">
+                    <img src="./app/4.png" alt="WD-WebDown icon" onerror="this.src='https://placehold.co/80x80/d9e3f0/3a6ea5?text=WebDown'">
+                </div>
+                <div class="title-info">
+                    <h2>WD-WebDown</h2>
+                    <div>
+                        <span class="category"><i class="fas fa-download"></i> 资源下载软件</span>
+                        <span class="category category-free"><i class="fas fa-gift"></i> 纯免费版</span>
+                    </div>
+                </div>
+            </div>
+            <div class="tech-row">
+                <span class="tech-badge"><i class="fab fa-html5"></i> GUI: HTML/CSS 增强界面</span>
+            </div>
+            <div class="badge-list">
+                <span class="badge"><i class="fab fa-python"></i> Python 3.13</span>
+                <span class="badge"><i class="fab fa-wxpython"></i> wxPython (规划)</span>
+                <span class="badge"><i class="fas fa-flask"></i> Flask (规划)</span>
+                <span class="badge"><i class="fas fa-cloud-download-alt"></i> 未知</span>
+                <span class="badge"><i class="fas fa-box"></i> pyinstaller 打包</span>
+                <span class="badge"><i class="fas fa-chart-line"></i> 未知</span>
+            </div>
+            <div class="spec-grid">
+                <div class="spec-item"><i class="fas fa-hourglass-half"></i> 耗时：暂定</div>
+                <div class="spec-item"><i class="fas fa-shield-alt"></i> 维护：即将发布</div>
+                <div class="spec-item"><i class="fas fa-code-branch"></i> 版本：开发中</div>
+                <div class="spec-item"><i class="fas fa-calendar-alt"></i> 开发：待定</div>
+            </div>
+            <div style="font-size: 0.75rem; font-weight: 500; margin-top: 6px; color:#1f3f62;"><i class="fas fa-cubes"></i> 核心依赖库</div>
+            <!-- 第四个文件全部暂定，未知 -->
+            <div class="lib-list">
+                <span>暂未公开 · 开发中</span><span>敬请期待</span><span>即将发布</span>
+            </div>
+            <div class="ai-row">
+                <span><i class="fas fa-robot"></i> AI: deepseekv3.2, kimik2.5思考</span>
+                <span><i class="fas fa-tachometer-alt"></i> 智能调度加速</span>
+            </div>
+            <div class="download-wrapper" style="margin-top: 1.8rem;">
+                <a href="javascript:void(0);" class="direct-download" id="webdownPlaceholder">
+                    <button class="download-btn" style="cursor: pointer;" id="tempDownBtn">
+                        <i class="fas fa-download"></i> 下载 WD-WebDown (即将开放)
+                        <i class="fas fa-hourglass-half"></i>
+                    </button>
+                </a>
+            </div>
+        </div>
     </div>
     <div class="footer-note">
         <i class="fas fa-crown"></i> WUDI STUDIO · 原生力量 & 前沿技术栈 | 每一行代码皆为匠心
@@ -558,81 +661,72 @@
 
 <script>
     (function() {
+        // pylog 下拉菜单逻辑 (保持原有)
         const downloadBtn = document.getElementById('pylogDownloadBtn');
         const dropdown = document.getElementById('pylogDropdown');
         const wrapper = document.getElementById('pylog-download-wrapper');
         
-        if (!downloadBtn || !dropdown) return;
-        
-        let isMenuOpen = false;
-        
-        // 统一向上展开菜单，并动态调整位置防止超出视口顶部
-        function openMenu() {
-            // 先设置为向上定位的默认样式
-            dropdown.style.bottom = 'calc(100% + 12px)';
-            dropdown.style.top = 'auto';
-            dropdown.style.transformOrigin = 'bottom';
-            dropdown.style.display = 'block';
-            
-            // 获取菜单实际高度
-            const menuHeight = dropdown.scrollHeight;
-            const btnRect = downloadBtn.getBoundingClientRect();
-            const scrollTop = window.scrollY;
-            const menuTop = btnRect.top + scrollTop - menuHeight - 12; // 菜单顶部理论位置
-            
-            // 如果菜单顶部超出视口顶部（即 scrollY > menuTop），则调整位置使其紧贴视口顶部
-            if (menuTop < scrollTop) {
-                // 调整 bottom 值，让菜单顶部对齐视口顶部
-                const offset = scrollTop - menuTop;
-                dropdown.style.bottom = `calc(100% + ${12 + offset}px)`;
+        if (downloadBtn && dropdown) {
+            let isMenuOpen = false;
+            function openMenu() {
+                dropdown.style.bottom = 'calc(100% + 12px)';
+                dropdown.style.top = 'auto';
+                dropdown.style.transformOrigin = 'bottom';
+                dropdown.style.display = 'block';
+                const menuHeight = dropdown.scrollHeight;
+                const btnRect = downloadBtn.getBoundingClientRect();
+                const scrollTop = window.scrollY;
+                const menuTop = btnRect.top + scrollTop - menuHeight - 12;
+                if (menuTop < scrollTop) {
+                    const offset = scrollTop - menuTop;
+                    dropdown.style.bottom = `calc(100% + ${12 + offset}px)`;
+                }
+                isMenuOpen = true;
             }
-            isMenuOpen = true;
-        }
-        
-        function closeMenu() {
-            dropdown.style.display = 'none';
-            isMenuOpen = false;
-            // 恢复默认 bottom 值，以便下次重新计算
-            dropdown.style.bottom = '';
-        }
-        
-        downloadBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (dropdown.style.display === 'none' || dropdown.style.display === '') {
-                openMenu();
-            } else {
-                closeMenu();
+            function closeMenu() {
+                dropdown.style.display = 'none';
+                isMenuOpen = false;
+                dropdown.style.bottom = '';
             }
-        });
-        
-        // 点击菜单项时关闭
-        const menuItems = dropdown.querySelectorAll('.menu-item');
-        menuItems.forEach(item => {
-            item.addEventListener('click', (e) => {
+            downloadBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                setTimeout(closeMenu, 50);
+                if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+                    openMenu();
+                } else {
+                    closeMenu();
+                }
             });
-        });
+            const menuItems = dropdown.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    setTimeout(closeMenu, 50);
+                });
+            });
+            document.addEventListener('click', function(e) {
+                if (wrapper && !wrapper.contains(e.target) && dropdown.style.display === 'block') {
+                    closeMenu();
+                }
+            });
+            window.addEventListener('scroll', function() {
+                if (dropdown.style.display === 'block') closeMenu();
+            });
+            window.addEventListener('resize', function() {
+                if (dropdown.style.display === 'block') closeMenu();
+            });
+            dropdown.style.display = 'none';
+        }
         
-        // 点击页面其他地方关闭
-        document.addEventListener('click', function(e) {
-            if (wrapper && !wrapper.contains(e.target) && dropdown.style.display === 'block') {
-                closeMenu();
-            }
-        });
+        // 处理第四个卡片下载占位提示 (因为暂未开放)
+        const tempBtn = document.getElementById('tempDownBtn');
+        if (tempBtn) {
+            tempBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('WD-WebDown 正在最后优化阶段，即将发布免费版本。敬请期待！');
+            });
+        }
         
-        // 滚动或窗口大小改变时关闭菜单（防止位置错乱）
-        window.addEventListener('scroll', function() {
-            if (dropdown.style.display === 'block') closeMenu();
-        });
-        window.addEventListener('resize', function() {
-            if (dropdown.style.display === 'block') closeMenu();
-        });
-        
-        // 初始隐藏
-        dropdown.style.display = 'none';
-        
-        // 图片容错
+        // 图片容错增强
         const images = document.querySelectorAll('.app-icon img');
         images.forEach(img => {
             img.addEventListener('error', function() {
@@ -645,7 +739,7 @@
             });
         });
         
-        console.log("%c✨ WUDI 软件作品园 | 统一向上菜单 · 完美适配窄屏", "color: #2c6280; font-size: 16px; font-weight: bold;");
+        console.log("%c✨ WUDI 软件作品园 | 已根据实际import更新依赖库，第四卡片标注暂未公开", "color: #2c6280; font-size: 16px; font-weight: bold;");
     })();
 </script>
 </body>
