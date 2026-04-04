@@ -171,6 +171,13 @@
             border-left: 3px solid #2ecc71;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
+        /* 验证版特殊样式 (科技紫蓝) */
+        .category-verify {
+            background: linear-gradient(135deg, #e0e7ff, #cdd9fe);
+            color: #334155;
+            border-left: 3px solid #6366f1;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
         /* GUI 技术特殊标签 (炫彩渐变) */
         .tech-badge {
             display: inline-flex;
@@ -602,7 +609,7 @@
             </div>
         </div>
 
-        <!-- 卡片 4 : WD-WebDown 全新完善版 - 架构与第二卡片一致，纯免费版，2026.04.02，耗时2天 -->
+        <!-- 卡片 4 : WD-WebDown 全新完善版 - 架构与第二卡片一致，纯免费版 -->
         <div class="card">
             <div class="card-header">
                 <div class="app-icon">
@@ -616,11 +623,9 @@
                     </div>
                 </div>
             </div>
-            <!-- GUI技术标签 - 与第二卡片风格一致 -->
             <div class="tech-row">
                 <span class="tech-badge"><i class="fab fa-html5"></i> GUI: HTML/CSS/JS 现代面板</span>
             </div>
-            <!-- 技术徽章列表，丰富且体现下载工具特性 -->
             <div class="badge-list">
                 <span class="badge"><i class="fab fa-python"></i> Python 3.13</span>
                 <span class="badge"><i class="fab fa-wxpython"></i> wxPython</span>
@@ -631,30 +636,80 @@
                 <span class="badge"><i class="fas fa-database"></i> SQLite 任务队列</span>
                 <span class="badge"><i class="fas fa-unlock-alt"></i> 无限制免费</span>
             </div>
-            <!-- 规格信息网格：耗时2天，维护状态，版本1.0，开发日期2026.04.02 -->
             <div class="spec-grid">
                 <div class="spec-item"><i class="fas fa-hourglass-start"></i> 耗时：2天</div>
                 <div class="spec-item"><i class="fas fa-shield-alt"></i> 维护：目前重点迭代</div>
                 <div class="spec-item"><i class="fas fa-code-branch"></i> 版本：1.0 (稳定版)</div>
                 <div class="spec-item"><i class="fas fa-calendar-alt"></i> 开发：2026.04.02</div>
             </div>
-                        <!-- 核心依赖库展示，结合下载工具常用库，架构与第二卡片保持一致 -->
             <div style="font-size: 0.75rem; font-weight: 500; margin-top: 6px; color:#1f3f62;"><i class="fas fa-cubes"></i> 核心依赖库</div>
             <div class="lib-list">
                 <span>wxPython (wx.html2)</span><span>Flask</span>
                 <span>sqlite3</span>
             </div>
-            <!-- AI技术协同行 -->
             <div class="ai-row">
                 <span><i class="fas fa-robot"></i> AI: DeepSeek-V3.2  智能调度</span>
                 <span><i class="fas fa-microchip"></i> 资源嗅探 · 加速引擎</span>
             </div>
-            <!-- 直接下载按钮链接到提供的蓝奏云地址，架构与第二卡片完全一致 -->
             <div class="download-wrapper" style="margin-top: 1.8rem;">
-                <a href="https://wwapa.lanzouq.com/i5lBP3m753ub
-" target="_blank" rel="noopener noreferrer" class="direct-download">
+                <a href="https://wwapa.lanzouq.com/i5lBP3m753ub" target="_blank" rel="noopener noreferrer" class="direct-download">
                     <button class="download-btn" style="cursor: pointer;">
                         <i class="fas fa-download"></i> 立即获取 WD-WebDown -100MB
+                        <i class="fas fa-external-link-alt" style="font-size: 0.8rem;"></i>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <!-- 卡片 5 : WD-PY_TVWebView (验证版) - 基于wxPython + html2 + Flask + JSON，重点维护 2026.04.04 -->
+        <div class="card">
+            <div class="card-header">
+                <div class="app-icon">
+                    <img src="./app/5.png" alt="WD-PY_TVWebView icon" onerror="this.src='https://placehold.co/80x80/d9e3f0/3a6ea5?text=TVWebView'">
+                </div>
+                <div class="title-info">
+                    <h2>WD-PYTV</h2>
+                    <div>
+                        <span class="category"><i class="fas fa-tv"></i> 智能电视TV</span>
+                        <span class="category category-verify"><i class="fas fa-shield-alt"></i> 验证版</span>
+                    </div>
+                </div>
+            </div>
+            <!-- GUI技术特殊标签 -->
+            <div class="tech-row">
+                <span class="tech-badge"><i class="fab fa-wxpython"></i> GUI: wx.html2 (WebView2)</span>
+                <span class="tech-badge"><i class="fas fa-microchip"></i> Flask 微服务内核</span>
+            </div>
+            <div class="badge-list">
+                <span class="badge"><i class="fab fa-python"></i> Python 3.13</span>
+                <span class="badge"><i class="fab fa-wxpython"></i> wxPython + html2</span>
+                <span class="badge"><i class="fas fa-flask"></i> Flask 后端</span>
+                <span class="badge"><i class="fas fa-code"></i> JSON 数据交换</span>
+                <span class="badge"><i class="fas fa-box"></i> pyinstaller 打包</span>
+                <span class="badge"><i class="fas fa-tv"></i> TV模式/大屏适配</span>
+                <span class="badge"><i class="fas fa-sync-alt"></i> 实时通信</span>
+                <span class="badge"><i class="fas fa-id-card"></i> 验证版专属</span>
+            </div>
+            <div class="spec-grid">
+                <div class="spec-item"><i class="fas fa-hourglass-start"></i> 耗时：2天</div>
+                <div class="spec-item"><i class="fas fa-chart-line"></i> 维护：重点维护 / 高频迭代</div>
+                <div class="spec-item"><i class="fas fa-code-branch"></i> 版本：1.0 (稳定预览版)</div>
+                <div class="spec-item"><i class="fas fa-calendar-alt"></i> 开发：2026.04.04</div>
+            </div>
+            <div style="font-size: 0.75rem; font-weight: 500; margin-top: 6px; color:#1f3f62;"><i class="fas fa-cubes"></i> 核心依赖库</div>
+            <div class="lib-list">
+                <span>wxPython (wx.html2)</span><span>Flask</span><span>json</span>
+                <span>requests</span><span>央视网+央视频+卫视官网</span>
+            </div>
+            <div class="ai-row">
+                <span><i class="fas fa-robot"></i> AI: DeepSeek-V3.2, Kimi2.5 思考模型</span>
+                <span><i class="fas fa-brain"></i> 双模型协同 · 智能渲染优化</span>
+            </div>
+            <div class="download-wrapper" style="margin-top: 1.8rem;">
+                <!-- 下载地址已按照要求修正为 http://avua.com -->
+                <a href="https://wwapa.lanzouq.com/iQlON3mg3vfg" target="_blank" rel="noopener noreferrer" class="direct-download">
+                    <button class="download-btn" style="cursor: pointer;">
+                        <i class="fas fa-download"></i> 立即获取 WD-PY_TVWebView - 100MB
                         <i class="fas fa-external-link-alt" style="font-size: 0.8rem;"></i>
                     </button>
                 </a>
@@ -737,7 +792,7 @@
             });
         });
         
-        console.log("%c✨ WUDI 软件作品园 | 第四个应用【WD-WebDown】已完成升级：架构与WD-weblog一致，耗时2天，日期2026.04.02，纯免费版，下载链接已更新。", "color: #2c6280; font-size: 14px; font-weight: bold; background: #eef2fc; padding: 4px 10px; border-radius: 20px;");
+        console.log("%c✨ WUDI 软件作品园 | 第五个应用【WD-PY_TVWebView】验证版已加入：基于wx.html2+Flask+JSON，开发耗时2天 (2026.04.04)，重点维护，AI: DeepSeek-V3.2 & Kimi2.5思考，下载链接已配置。", "color: #2c6280; font-size: 14px; font-weight: bold; background: #eef2fc; padding: 4px 10px; border-radius: 20px;");
     })();
 </script>
 </body>
