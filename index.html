@@ -45,7 +45,7 @@
 
         .hero {
             text-align: center;
-            margin-bottom: 3.5rem;
+            margin-bottom: 2.5rem;
             animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
         }
 
@@ -72,6 +72,80 @@
             margin-top: 1rem;
             border: 1px solid rgba(70, 110, 160, 0.25);
             color: #1e3a5f;
+        }
+
+        /* 个人介绍卡片 */
+        .profile-card {
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            border: 1px solid rgba(100, 130, 180, 0.3);
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.08), 0 0 0 0.5px rgba(255, 255, 255, 0.6) inset;
+            padding: 1.2rem 1.8rem;
+            margin-bottom: 3rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            transition: all 0.3s ease;
+            animation: fadeInScale 0.6s ease-out 0.1s both;
+        }
+        .profile-avatar {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+        .avatar-img {
+            width: 80px;
+            height: 80px;
+            background: #eef2fc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid rgba(70, 130, 220, 0.5);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+        }
+        .avatar-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile-info h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1f3a5f, #2c6280);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .profile-info .bio-detail {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.3rem;
+            font-size: 0.9rem;
+            color: #2c4a6e;
+        }
+        .bio-detail span i {
+            width: 1.4rem;
+            color: #3a71b0;
+        }
+        .contact-email a {
+            color: #2c6280;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dashed #8aadcc;
+        }
+        .contact-email a:hover {
+            color: #1e4a76;
+            border-bottom-style: solid;
+        }
+        @media (max-width: 680px) {
+            .profile-card { flex-direction: column; align-items: flex-start; }
+            .profile-avatar { width: 100%; }
         }
 
         .cards-grid {
@@ -144,7 +218,6 @@
             color: transparent;
         }
 
-        /* 通用 category 基底 */
         .category {
             display: inline-block;
             backdrop-filter: blur(2px);
@@ -157,28 +230,21 @@
             border: 0.5px solid rgba(60, 110, 170, 0.3);
             transition: all 0.2s;
         }
-        /* 授权版特殊样式 (金色尊贵) */
         .category-paid {
             background: linear-gradient(135deg, #f9e7b3, #f5cf86);
             color: #7a5c1a;
             border-left: 3px solid #e6b422;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
-        /* 免费版特殊样式 (清新翠绿) */
         .category-free {
             background: linear-gradient(135deg, #d9f0e1, #bef5d5);
             color: #1c6e3f;
             border-left: 3px solid #2ecc71;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
-        /* 验证版特殊样式 (科技紫蓝) */
         .category-verify {
             background: linear-gradient(135deg, #e0e7ff, #cdd9fe);
             color: #334155;
             border-left: 3px solid #6366f1;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
-        /* GUI 技术特殊标签 (炫彩渐变) */
         .tech-badge {
             display: inline-flex;
             align-items: center;
@@ -239,7 +305,6 @@
             font-weight: 600;
             border-left: 2px solid #3a7bca;
             color: #1f3f62;
-            transition: 0.1s ease;
         }
 
         .lib-list {
@@ -322,7 +387,7 @@
             transform: translateY(2px);
         }
 
-        /* 下拉菜单 - 仅用于 pylog 保持向上展开 */
+        /* 下拉菜单通用样式 */
         .dropdown-menu {
             position: absolute;
             bottom: calc(100% + 12px);
@@ -425,7 +490,6 @@
         .badge i, .lib-list span i, .spec-item i { color: #3a71b0; }
         .ai-row i { color: #427bb8; }
         
-        /* 技术标签行 */
         .tech-row {
             margin: 12px 0 6px 0;
             display: flex;
@@ -442,8 +506,27 @@
         <div class="glow"><i class="fas fa-crown"></i> 极致匠心 · 先锋技术栈 · AI助力 <i class="fas fa-code"></i></div>
     </div>
 
+    <!-- 个人介绍卡片：头像、吴迪、动态年龄、邮箱 -->
+    <div class="profile-card">
+        <div class="profile-avatar">
+            <div class="avatar-img">
+                <img src="./tx.png" alt="吴迪头像" onerror="this.src='https://placehold.co/80x80/eef2fc/3a6ea5?text=WD'">
+            </div>
+            <div class="profile-info">
+                <h3>吴迪 <span style="font-size: 1rem; background: none; -webkit-background-clip: unset; color:#4a6f8f;">(WUDI)</span></h3>
+                <div class="bio-detail">
+                    <span><i class="fas fa-calendar-alt"></i> 出生：2004.05.23 · <strong id="dynamicAge">--</strong>岁</span>
+                    <span class="contact-email"><i class="fas fa-envelope"></i> <a href="mailto:2658521367@qq.com">2658521367@qq.com</a></span>
+                </div>
+            </div>
+        </div>
+        <div style="font-size: 0.85rem; background: rgba(60,110,170,0.08); padding: 0.4rem 1rem; border-radius: 30px;">
+            <i class="fas fa-laptop-code"></i> 全栈开发者 · AI 深度实践者 · 开源精神
+        </div>
+    </div>
+
     <div class="cards-grid">
-        <!-- 卡片 1 : WD-pylog (授权版 + ttkbootstrap) -->
+        <!-- 卡片 1 : WD-pylog (授权版 + ttkbootstrap) 保持原有下拉菜单 -->
         <div class="card">
             <div class="card-header">
                 <div class="app-icon">
@@ -457,7 +540,6 @@
                     </div>
                 </div>
             </div>
-            <!-- GUI技术特殊标签 -->
             <div class="tech-row">
                 <span class="tech-badge"><i class="fas fa-palette"></i> GUI: ttkbootstrap</span>
             </div>
@@ -506,7 +588,7 @@
             </div>
         </div>
 
-        <!-- 卡片 2 : WD-weblog (纯免费 + HTML/CSS) -->
+        <!-- 卡片 2 : WD-weblog -->
         <div class="card">
             <div class="card-header">
                 <div class="app-icon">
@@ -560,7 +642,7 @@
             </div>
         </div>
 
-        <!-- 卡片 3 : WD-WebArticle (wxPython+Flask+sqlite 纯免费) -->
+        <!-- 卡片 3 : WD-WebArticle -->
         <div class="card">
             <div class="card-header">
                 <div class="app-icon">
@@ -609,7 +691,7 @@
             </div>
         </div>
 
-        <!-- 卡片 4 : WD-WebDown 全新完善版 - 架构与第二卡片一致，纯免费版 -->
+        <!-- 卡片 4 : WD-WebDown -->
         <div class="card">
             <div class="card-header">
                 <div class="app-icon">
@@ -661,7 +743,7 @@
             </div>
         </div>
 
-        <!-- 卡片 5 : WD-PY_TVWebView (验证版) - 基于wxPython + html2 + Flask + JSON，重点维护 2026.04.04 -->
+        <!-- 卡片 5 : WD-PYTV (验证版) 重构为下拉菜单：基础版 + WDTV2.0 -->
         <div class="card">
             <div class="card-header">
                 <div class="app-icon">
@@ -675,7 +757,6 @@
                     </div>
                 </div>
             </div>
-            <!-- GUI技术特殊标签 -->
             <div class="tech-row">
                 <span class="tech-badge"><i class="fab fa-wxpython"></i> GUI: wx.html2 (WebView2)</span>
                 <span class="tech-badge"><i class="fas fa-microchip"></i> Flask 微服务内核</span>
@@ -693,7 +774,7 @@
             <div class="spec-grid">
                 <div class="spec-item"><i class="fas fa-hourglass-start"></i> 耗时：2天</div>
                 <div class="spec-item"><i class="fas fa-chart-line"></i> 维护：重点维护 / 高频迭代</div>
-                <div class="spec-item"><i class="fas fa-code-branch"></i> 版本：1.0 (稳定预览版)</div>
+                <div class="spec-item"><i class="fas fa-code-branch"></i> 版本：1.0 (稳定预览版) + 2.0新版</div>
                 <div class="spec-item"><i class="fas fa-calendar-alt"></i> 开发：2026.04.04</div>
             </div>
             <div style="font-size: 0.75rem; font-weight: 500; margin-top: 6px; color:#1f3f62;"><i class="fas fa-cubes"></i> 核心依赖库</div>
@@ -705,14 +786,19 @@
                 <span><i class="fas fa-robot"></i> AI: DeepSeek-V3.2, Kimi2.5 思考模型</span>
                 <span><i class="fas fa-brain"></i> 双模型协同 · 智能渲染优化</span>
             </div>
-            <div class="download-wrapper" style="margin-top: 1.8rem;">
-                <!-- 下载地址已按照要求修正为 http://avua.com -->
-                <a href="https://wwapa.lanzouq.com/iQlON3mg3vfg" target="_blank" rel="noopener noreferrer" class="direct-download">
-                    <button class="download-btn" style="cursor: pointer;">
-                        <i class="fas fa-download"></i> 立即获取 WD-PY_TVWebView - 100MB
-                        <i class="fas fa-external-link-alt" style="font-size: 0.8rem;"></i>
-                    </button>
-                </a>
+            <!-- 新下拉菜单结构，基础版 + WDTV2.0 -->
+            <div class="download-wrapper" id="pytv-download-wrapper">
+                <button class="download-btn" id="pytvDownloadBtn">
+                    <i class="fas fa-tv"></i> 获取 WD-PYTV <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
+                </button>
+                <div class="dropdown-menu" id="pytvDropdown" style="display: none;">
+                    <a href="https://wwapa.lanzouq.com/iQlON3mg3vfg" target="_blank" rel="noopener noreferrer" class="menu-item">
+                        <i class="fas fa-tv"></i> 基础版 (WD-PY_TVWebView) - 100MB · 稳定预览
+                    </a>
+                    <a href="https://wwapa.lanzouq.com/iHl8q3miyxpg" target="_blank" rel="noopener noreferrer" class="menu-item">
+                        <i class="fas fa-star"></i> WDTV2.0 增强版 - 全新架构 · 更流畅体验
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -723,36 +809,64 @@
 
 <script>
     (function() {
-        // pylog 下拉菜单逻辑 (保持原有)
-        const downloadBtn = document.getElementById('pylogDownloadBtn');
-        const dropdown = document.getElementById('pylogDropdown');
-        const wrapper = document.getElementById('pylog-download-wrapper');
-        
-        if (downloadBtn && dropdown) {
-            let isMenuOpen = false;
+        // 动态计算年龄 (2004年5月23日)
+        function calculateAge(birthDateStr) {
+            const birth = new Date(birthDateStr);
+            const today = new Date();
+            let age = today.getFullYear() - birth.getFullYear();
+            const monthDiff = today.getMonth() - birth.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+                age--;
+            }
+            return age;
+        }
+        const ageSpan = document.getElementById('dynamicAge');
+        if (ageSpan) {
+            ageSpan.textContent = calculateAge('2004-05-23');
+        }
+
+        // 通用下拉菜单管理 (支持pylog和pytv)
+        const dropdownConfigs = [
+            { wrapperId: 'pylog-download-wrapper', btnId: 'pylogDownloadBtn', dropdownId: 'pylogDropdown' },
+            { wrapperId: 'pytv-download-wrapper', btnId: 'pytvDownloadBtn', dropdownId: 'pytvDropdown' }
+        ];
+
+        function initDropdown(config) {
+            const wrapper = document.getElementById(config.wrapperId);
+            const btn = document.getElementById(config.btnId);
+            const dropdown = document.getElementById(config.dropdownId);
+            if (!wrapper || !btn || !dropdown) return;
+            let isOpen = false;
             function openMenu() {
                 dropdown.style.bottom = 'calc(100% + 12px)';
                 dropdown.style.top = 'auto';
                 dropdown.style.transformOrigin = 'bottom';
                 dropdown.style.display = 'block';
                 const menuHeight = dropdown.scrollHeight;
-                const btnRect = downloadBtn.getBoundingClientRect();
+                const btnRect = btn.getBoundingClientRect();
                 const scrollTop = window.scrollY;
                 const menuTop = btnRect.top + scrollTop - menuHeight - 12;
                 if (menuTop < scrollTop) {
                     const offset = scrollTop - menuTop;
                     dropdown.style.bottom = `calc(100% + ${12 + offset}px)`;
                 }
-                isMenuOpen = true;
+                isOpen = true;
             }
             function closeMenu() {
                 dropdown.style.display = 'none';
-                isMenuOpen = false;
+                isOpen = false;
                 dropdown.style.bottom = '';
             }
-            downloadBtn.addEventListener('click', (e) => {
+            btn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+                    // 关闭其他所有下拉菜单后再打开当前
+                    dropdownConfigs.forEach(cfg => {
+                        const otherDrop = document.getElementById(cfg.dropdownId);
+                        if (otherDrop && otherDrop !== dropdown && otherDrop.style.display === 'block') {
+                            otherDrop.style.display = 'none';
+                        }
+                    });
                     openMenu();
                 } else {
                     closeMenu();
@@ -770,29 +884,31 @@
                     closeMenu();
                 }
             });
-            window.addEventListener('scroll', function() {
-                if (dropdown.style.display === 'block') closeMenu();
-            });
-            window.addEventListener('resize', function() {
-                if (dropdown.style.display === 'block') closeMenu();
-            });
+            window.addEventListener('scroll', function() { if (dropdown.style.display === 'block') closeMenu(); });
+            window.addEventListener('resize', function() { if (dropdown.style.display === 'block') closeMenu(); });
             dropdown.style.display = 'none';
         }
-        
+
+        dropdownConfigs.forEach(cfg => initDropdown(cfg));
+
         // 图片容错增强
-        const images = document.querySelectorAll('.app-icon img');
+        const images = document.querySelectorAll('.app-icon img, .avatar-img img');
         images.forEach(img => {
             img.addEventListener('error', function() {
                 if (!this.getAttribute('data-fallback')) {
                     this.setAttribute('data-fallback', 'true');
-                    this.style.objectFit = 'cover';
-                    this.style.background = '#eef2fa';
-                    this.style.padding = '12px';
+                    if (this.closest('.avatar-img')) {
+                        this.src = 'https://placehold.co/80x80/eef2fc/3a6ea5?text=WD';
+                    } else {
+                        this.style.objectFit = 'cover';
+                        this.style.background = '#eef2fa';
+                        this.style.padding = '12px';
+                    }
                 }
             });
         });
         
-        console.log("%c✨ WUDI 软件作品园 | 第五个应用【WD-PY_TVWebView】验证版已加入：基于wx.html2+Flask+JSON，开发耗时2天 (2026.04.04)，重点维护，AI: DeepSeek-V3.2 & Kimi2.5思考，下载链接已配置。", "color: #2c6280; font-size: 14px; font-weight: bold; background: #eef2fc; padding: 4px 10px; border-radius: 20px;");
+        console.log("%c✨ WUDI 软件作品园 | 第五个卡片已升级为下拉菜单 (基础版 + WDTV2.0)，个人头像及动态年龄已加载。", "color: #2c6280; font-size: 14px; font-weight: bold; background: #eef2fc; padding: 4px 10px; border-radius: 20px;");
     })();
 </script>
 </body>
